@@ -1,8 +1,11 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { StatusBar } from "react-native";
 import MainStack from './src/stack/MainStack';
 import { DefaultTheme } from '@react-navigation/native';
+
+import {GitHubProvider} from './src/contexts/gitHub';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -17,12 +20,13 @@ const MyTheme = {
 };
 
 const Main = () => {
-  
   return (
     <>
      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <NavigationContainer theme={MyTheme} >
-        <MainStack />
+        <GitHubProvider>
+          <MainStack />
+        </GitHubProvider>
       </NavigationContainer>
     </>
   );

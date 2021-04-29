@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import React, {useContext} from 'react';
+import FindUserGitHubContext from '../../contexts/gitHub';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts, Roboto_100Thin, Roboto_300Light } from '@expo-google-fonts/roboto';
 import {
@@ -9,12 +10,21 @@ import {
 
 import BorderLine from '../BorderAbsolute';
 
-const Profile = ({profile}) => {
+
+const Profile = ({ profile, home }) => {
+  if (profile == null )
+  return null;
+
+  const {signOut} = useContext(FindUserGitHubContext);
 
   let [fontsLoaded] = useFonts({ Roboto_100Thin, Roboto_300Light });
-  const img = 'https://avatars.githubusercontent.com/u/15203010?s=400&u=f873524dcac065be49528b121ca430c98fcb7daa&v=4';
+
   if (!fontsLoaded) {
     return <Container />;
+  }
+
+  const handleSignOut = () => {
+    signOut();
   }
 
   return (
@@ -24,41 +34,51 @@ const Profile = ({profile}) => {
       </ImageArea>
       <Header>
         <UserName>#{profile.nome}</UserName>
-        <CardLogout>
-          <LabelLogout>Sair</LabelLogout>
-          <Ionicons name="exit-outline" size={24} color="red" />
-        </CardLogout>
+        
+          {
+            home ?
+              <CardLogout onPress={handleSignOut}>
+                <LabelLogout>Sair</LabelLogout>
+                <Ionicons name="exit-outline" size={24} color="red" />
+              </CardLogout>
+              :
+              <CardLogout>
+                  <LabelLogout>Salvar</LabelLogout>
+                  <Ionicons name="ios-enter-outline" size={24} color="green" />
+              </CardLogout>
+          }
+
       </Header>
 
       <ContainerProfile>
         <LabelName>
-        {profile.nome}
+          {profile.nome}
         </LabelName>
-        <BorderLine  top={98} left={-50} />
+        <BorderLine top={98} left={-50} />
         <LabelProfileGeneric>
           {profile.email}
-          </LabelProfileGeneric>
+        </LabelProfileGeneric>
         <LabelProfileGeneric>
           {profile.location}
-          </LabelProfileGeneric>
+        </LabelProfileGeneric>
       </ContainerProfile>
 
       <ContainerFollowers>
         <Followers>
           <NumberFollowers>
-           {profile.seguidores}
+            {profile.seguidores}
           </NumberFollowers>
           <LabelFollowers>Seguidores</LabelFollowers>
         </Followers>
         <Followers>
           <NumberFollowers>
-          {profile.seguindo}
+            {profile.seguindo}
           </NumberFollowers>
           <LabelFollowers>Seguindo</LabelFollowers>
         </Followers>
         <Followers>
           <NumberFollowers>
-          {profile.repositorios}
+            {profile.repositorios}
           </NumberFollowers>
           <LabelFollowers>Repos</LabelFollowers>
         </Followers>
@@ -68,10 +88,10 @@ const Profile = ({profile}) => {
         <LabelBio>
           BIO
           </LabelBio>
-          <BorderLine  top={42} left={-50} />
+        <BorderLine top={42} left={-50} />
         <Biograph>
-           {profile.bio}
-          </Biograph>
+          {profile.bio}
+        </Biograph>
       </ContainerBiograph>
     </Container>
   );
