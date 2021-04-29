@@ -21,7 +21,7 @@ const MainStack = () => {
       >
         {
           !signed ? <Stack.Screen name="Login" component={Login} /> :
-                 <Stack.Screen name="Navigation" component={TabNavigation} />
+                    <Stack.Screen name="Navigation" component={TabNavigation} />
         }
          
       </Stack.Navigator>

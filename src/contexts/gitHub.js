@@ -4,10 +4,10 @@ import Api from '../services/index';
 const FindUserGitHubContext = createContext({});
 
 async  function getUserGitHub(name){
-    const response = await Api.get(`/users/${name}`);
-  
-    return response;
-  }
+  const response = await Api.get(`/users/${name}`);
+
+  return response;
+}
 
 export const GitHubProvider = ({children}) => {
     const [user, setUser] = useState(null);
@@ -27,7 +27,8 @@ export const GitHubProvider = ({children}) => {
             location: github.location || "Localização não especificada",
             seguidores: github.followers,
             seguindo: github.following,
-            repositorios: github.public_repos
+            repositorios: github.public_repos,
+            login: github.login
           }
     
           setProfile(obj);
@@ -42,9 +43,9 @@ export const GitHubProvider = ({children}) => {
     }
 
     return (
-        <FindUserGitHubContext.Provider value={{signed: !!profile, profile, signIn, signOut}} >
-            {children}
-        </FindUserGitHubContext.Provider>
+      <FindUserGitHubContext.Provider value={{signed: !!profile, profile, signIn, signOut}} >
+          {children}
+      </FindUserGitHubContext.Provider>
     )
 
 }

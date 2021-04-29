@@ -9,7 +9,7 @@ const Login = () => {
     const [inputName , setInputName] = useState("");
 
     const {signIn} = useContext(FindUserGitHubContext);
-    const handleSignClick = () =>{
+    const handleSignClick = () => {
         if (inputName != "") {
             signIn(inputName);
         } else {
