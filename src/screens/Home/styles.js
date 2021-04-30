@@ -41,7 +41,7 @@ export const ImageArea = styled.View`
     z-index: 1;
     align-self: center;
     top: 60px;
-    right: 136px;
+    right: 138px;
     border: 3px solid #fff;
     border-radius: 66px;
 `;

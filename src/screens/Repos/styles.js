@@ -30,6 +30,10 @@ export const NumberRepositories = styled.Text`
     font-weight: bold;
 `;
 
+export const ListContainerGeral = styled.View`
+
+`;
+
 export const ListContainer = styled.View`
     padding-top:24px;
     padding-left: 20px;

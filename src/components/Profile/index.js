@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import {Dimensions} from 'react-native';
 import FindUserGitHubContext from '../../contexts/gitHub';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts, Roboto_100Thin, Roboto_300Light } from '@expo-google-fonts/roboto';
@@ -10,8 +11,10 @@ import {
 
 import BorderLine from '../BorderAbsolute';
 
+const windowWidth = Dimensions.get('window').width;
 
 const Profile = ({ profile, home }) => {
+
   if (profile == null )
   return null;
 
@@ -29,7 +32,7 @@ const Profile = ({ profile, home }) => {
 
   return (
     <Container>
-      <ImageArea>
+      <ImageArea screenWidth={windowWidth != null ? windowWidth : 0 }>
         <Avatar source={{ uri: profile.avatar }} />
       </ImageArea>
       <Header>

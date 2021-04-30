@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons'; 
-import { Container, Header, ButtonBack, NumberRepositories, ListContainer,
+import { Container, Header, ButtonBack, NumberRepositories, ListContainer,ListContainerGeral,
      ListTitle, ListDescription,Divider, ListBottom, BottomStars,NumberStars,BottomIconsCloseOpen } from './styles';
 import { Feather } from '@expo/vector-icons'; 
 import BorderLine from '../../components/BorderAbsolute';
@@ -54,8 +54,8 @@ const Repos = () => {
             </Header>
             {
                repositorios.map(repo => (
-                <>
-                    <ListContainer key={repo.id}>
+                <ListContainerGeral key={repo.id}>
+                    <ListContainer>
                         <ListTitle>
                             {repo.repo}
                         </ListTitle>
@@ -74,9 +74,10 @@ const Repos = () => {
                                 <Feather name="unlock" size={18} color="#CC042A" style={{marginLeft: 6}} />
                             </BottomIconsCloseOpen>
                         </ListBottom>
+                       
                     </ListContainer>
                     <Divider />
-                </>
+                </ListContainerGeral>
                )
             )
             }

@@ -41,7 +41,7 @@ export const ImageArea = styled.View`
     z-index: 1;
     align-self: center;
     top: 60px;
-    right: 136px;
+    right: ${({screenWidth}) => ((screenWidth / 2) - 64)}px;
     border: 3px solid #fff;
     border-radius: 66px;
 `;
