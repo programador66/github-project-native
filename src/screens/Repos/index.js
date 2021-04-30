@@ -20,14 +20,14 @@ const Repos = () => {
 
     const navigation = useNavigation();
 
-    const {profile} = useContext(FindUserGitHubContext);
+    const {profile, setShowLoading} = useContext(FindUserGitHubContext);
     if (profile == null )
     return null;
     
     const [repositorios, setRepositorios] = useState([]);
 
     useEffect(() => {
-
+        setShowLoading(true);
         getReposUserGitHub(profile.login).then(res => {
             const githubRepositories = res.data;
 
@@ -41,6 +41,7 @@ const Repos = () => {
             })
 
             setRepositorios(repos);
+            setShowLoading(false);
         }).catch(e => console.log(e.response));
 
     },[profile]);

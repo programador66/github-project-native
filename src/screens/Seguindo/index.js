@@ -16,14 +16,14 @@ async  function getFollowingGitHub(name){
 
 const Seguindo = () => {
 
-    const {profile} = useContext(FindUserGitHubContext);
+    const {profile,setShowLoading} = useContext(FindUserGitHubContext);
     if (profile == null )
     return null;
     
     const [following, setFollowing] = useState([]);
 
     useEffect(() => {
-
+        setShowLoading(true);
         getFollowingGitHub(profile.login).then(res => {
             const githubFollowing = res.data;
 
@@ -35,6 +35,7 @@ const Seguindo = () => {
             })
 
             setFollowing(foll);
+            setShowLoading(false);
         }).catch(e => console.log(e.response));
 
     },[profile]);

@@ -4,14 +4,16 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../screens/Login';
 import TabNavigation from './Navigation';
 import FindUserGitHubContext from '../contexts/gitHub';
+import Loading from '../components/Loading';
 
 const Stack = createStackNavigator();
 
 
 const MainStack = () => {
-  const { signed } = useContext(FindUserGitHubContext);
- 
+  const { signed,loading } = useContext(FindUserGitHubContext);
+  
   return (
+    <>
       <Stack.Navigator
         initialRouteName="Login"
         screenOptions={{
@@ -25,6 +27,8 @@ const MainStack = () => {
         }
          
       </Stack.Navigator>
+      { loading && <Loading />}
+      </>
   );
 }
 

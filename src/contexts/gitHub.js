@@ -11,7 +11,8 @@ async  function getUserGitHub(name){
 
 export const GitHubProvider = ({children}) => {
     const [user, setUser] = useState(null);
-    const [profile, setProfile] = useState(null)
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(false);
 
    async function signIn (name) {
       if (name == " ")
@@ -32,7 +33,7 @@ export const GitHubProvider = ({children}) => {
           }
     
           setProfile(obj);
-        
+          setLoading(false);
         }).catch(e => console.log(e.response));
     
 
@@ -42,8 +43,12 @@ export const GitHubProvider = ({children}) => {
       setProfile(null);
     }
 
+    async function setShowLoading(load) {
+      setLoading(load);
+    }
+
     return (
-      <FindUserGitHubContext.Provider value={{signed: !!profile, profile, signIn, signOut}} >
+      <FindUserGitHubContext.Provider value={{signed: !!profile, profile, signIn, signOut, setShowLoading,loading}} >
           {children}
       </FindUserGitHubContext.Provider>
     )

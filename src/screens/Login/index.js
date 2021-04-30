@@ -8,11 +8,13 @@ const Login = () => {
  
     const [inputName , setInputName] = useState("");
 
-    const {signIn} = useContext(FindUserGitHubContext);
+    const {signIn, setShowLoading} = useContext(FindUserGitHubContext);
     const handleSignClick = () => {
+        setShowLoading(true);
         if (inputName != "") {
             signIn(inputName);
         } else {
+            setShowLoading(false);
             alert("Favor preencher o nome para a busca!")
         }
            
