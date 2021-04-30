@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { Container, Header, ButtonBack, NumberRepositories, ListContainer,ListContainerGeral,
      ListTitle, ListDescription,Divider, ListBottom, BottomStars,NumberStars,BottomIconsCloseOpen } from './styles';
 import { Feather } from '@expo/vector-icons'; 
@@ -16,6 +17,8 @@ import Api from '../../services/index';
   }
 
 const Repos = () => {
+
+    const navigation = useNavigation();
 
     const {profile} = useContext(FindUserGitHubContext);
     if (profile == null )
@@ -45,7 +48,7 @@ const Repos = () => {
     return (
         <Container>
             <Header>
-                <ButtonBack>
+                <ButtonBack onPress={() => navigation.navigate("Home")}>
                     <AntDesign name="arrowleft" size={28} color="white" />
                 </ButtonBack>
                 <NumberRepositories>

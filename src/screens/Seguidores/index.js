@@ -1,13 +1,60 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import { useNavigation } from '@react-navigation/native';
+import {AntDesign} from '@expo/vector-icons';
 
-// import { Container } from './styles';
+import FindUserGitHubContext from '../../contexts/gitHub';
+
+import { Container,Header, ButtonBack,NumberSeguidores } from './styles';
+import CardFollow from '../../components/CardFollow';
+
+import Api from '../../services/index';
+
+async  function getFollowersGitHub(name){
+    
+    const response = await Api.get(`/users/${name}/followers`);
+   
+    return response;
+}
 
 const Seguidores = () => {
+
+    const {profile} = useContext(FindUserGitHubContext);
+    if (profile == null )
+    return null;
+    
+    const [followers, setFollowers] = useState([]);
+
+    useEffect(() => {
+
+        getFollowersGitHub(profile.login).then(res => {
+            const githubFollowers = res.data;
+
+            const foll = githubFollowers.map(follower => {
+                return {
+                    login: follower.login,
+                    avatar: follower.avatar_url
+                }
+            })
+
+            setFollowers(foll);
+        }).catch(e => console.log(e.response));
+
+    },[profile]);
+
+    const navigation = useNavigation();
     return (
-        <View>
-            <Text>Hello Seguidores</Text>
-        </View>
+       <Container>
+           <Header>
+                <ButtonBack onPress={() => navigation.navigate("Home")}>
+                    <AntDesign name="arrowleft" size={28} color="white" />
+                </ButtonBack>
+                <NumberSeguidores>
+                    {followers.length} Seguidores
+                </NumberSeguidores>
+            </Header>
+
+            <CardFollow followers={followers} />
+       </Container>
     );
 }
 

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "github-project-native",
-    "slug": "github-project-native",
+    "name": "Github Luby App",
+    "slug": "Github-Luby-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
