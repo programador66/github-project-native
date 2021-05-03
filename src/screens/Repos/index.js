@@ -61,11 +61,11 @@ const Repos = () => {
                 <ListContainerGeral key={repo.id}>
                     <ListContainer>
                         <ListTitle>
-                            {repo.repo}
+                            {(repo.repo).substr(0,35)} ...
                         </ListTitle>
                         <BorderLine  top={17} left={-50} />
                         <ListDescription>
-                            {repo.description != null ? repo.description : "No description for this repositorie"}
+                            {repo.description != null ? (repo.description).substr(0,120) : "No description for this repositorie"}
                         </ListDescription>
                         <ListBottom>
                             <BottomStars>
