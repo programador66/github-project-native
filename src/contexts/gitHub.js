@@ -10,10 +10,10 @@ async  function getUserGitHub(name){
 }
 
 export const GitHubProvider = ({children}) => {
-    const [user, setUser] = useState(null);
+    const [followProfile, setFollowProfile] = useState(null);
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(false);
-
+  
    async function signIn (name) {
       if (name == " ")
       return false;
@@ -34,7 +34,10 @@ export const GitHubProvider = ({children}) => {
     
           setProfile(obj);
           setLoading(false);
-        }).catch(e => console.log(e.response));
+        }).catch(e => {
+          setLoading(false);
+          alert("Usuario não encontrado! verifique sua conexão e tente novamente!")
+        });
     
 
     }
@@ -47,8 +50,32 @@ export const GitHubProvider = ({children}) => {
       setLoading(load);
     }
 
+    async function getProfileFollow(name) {
+
+     await getUserGitHub(name).then(res => {
+        const github = res.data;
+        let obj = {
+          avatar: github.avatar_url,
+          bio: github.bio || "Sem informações",
+          nome: github.name,
+          email: github.blog,
+          location: github.location || "Localização não especificada",
+          seguidores: github.followers,
+          seguindo: github.following,
+          repositorios: github.public_repos,
+          login: github.login
+        }
+  
+        setFollowProfile(obj);
+        setLoading(false);
+      }).catch(e => {
+        setLoading(false);
+        alert("Usuario não encontrado! verifique sua conexão e tente novamente!")
+      });
+    }
+
     return (
-      <FindUserGitHubContext.Provider value={{signed: !!profile, profile, signIn, signOut, setShowLoading,loading}} >
+      <FindUserGitHubContext.Provider value={{signed: !!profile, profile, signIn, signOut, setShowLoading,loading,followProfile, getProfileFollow}} >
           {children}
       </FindUserGitHubContext.Provider>
     )

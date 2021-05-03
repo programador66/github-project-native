@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-import Load from '../../assets/spinner.gif';
+import Load from '../../assets/spinner2.gif';
 
 const Container = styled.View`
     height: 100%;

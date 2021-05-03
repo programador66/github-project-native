@@ -5,6 +5,7 @@ import Login from '../screens/Login';
 import TabNavigation from './Navigation';
 import FindUserGitHubContext from '../contexts/gitHub';
 import Loading from '../components/Loading';
+import FollowProfile from '../screens/FollowProfile';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +24,10 @@ const MainStack = () => {
       >
         {
           !signed ? <Stack.Screen name="Login" component={Login} /> :
-                    <Stack.Screen name="Navigation" component={TabNavigation} />
+                    <>
+                      <Stack.Screen name="Navigation" component={TabNavigation} />
+                      <Stack.Screen name="FollowProfile" component={FollowProfile} />
+                    </>
         }
          
       </Stack.Navigator>

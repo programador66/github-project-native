@@ -1,24 +1,26 @@
 import React, {useContext} from 'react';
 import {Dimensions} from 'react-native';
 import FindUserGitHubContext from '../../contexts/gitHub';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,AntDesign } from '@expo/vector-icons';
 import { useFonts, Roboto_100Thin, Roboto_300Light } from '@expo-google-fonts/roboto';
 import {
   Container, Header, UserName, CardLogout, LabelLogout, Avatar, ContainerProfile,
   ImageArea, LabelName, LabelProfileGeneric, ContainerFollowers,
-  Followers, NumberFollowers, LabelFollowers, ContainerBiograph, LabelBio, Biograph
+  Followers, NumberFollowers, LabelFollowers, ContainerBiograph, LabelBio, Biograph,
+  ButtonBack
 } from './styles';
-
+import { useNavigation } from '@react-navigation/core';
 import BorderLine from '../BorderAbsolute';
 
 const windowWidth = Dimensions.get('window').width;
 
 const Profile = ({ profile, home }) => {
+  const navigation = useNavigation();
 
   if (profile == null )
   return null;
 
-  const {signOut} = useContext(FindUserGitHubContext);
+  const {signOut,signIn,setShowLoading} = useContext(FindUserGitHubContext);
 
   let [fontsLoaded] = useFonts({ Roboto_100Thin, Roboto_300Light });
 
@@ -30,12 +32,27 @@ const Profile = ({ profile, home }) => {
     signOut();
   }
 
+
+  const handleSaveNewProfile = async () => {
+    setShowLoading(true);
+    await signIn(profile.login);
+
+    navigation.navigate("Home");
+  }
+
   return (
     <Container>
       <ImageArea screenWidth={windowWidth != null ? windowWidth : 0 }>
         <Avatar source={{ uri: profile.avatar }} />
       </ImageArea>
       <Header>
+        {
+          !home && <ButtonBack onPress={() => navigation.goBack()}>
+                      <AntDesign name="arrowleft" size={28} color="white" />
+                    </ButtonBack>
+        }
+
+
         <UserName>#{profile.nome}</UserName>
         
           {
@@ -45,7 +62,7 @@ const Profile = ({ profile, home }) => {
                 <Ionicons name="exit-outline" size={24} color="red" />
               </CardLogout>
               :
-              <CardLogout>
+              <CardLogout onPress={handleSaveNewProfile}>
                   <LabelLogout>Salvar</LabelLogout>
                   <Ionicons name="ios-enter-outline" size={24} color="green" />
               </CardLogout>

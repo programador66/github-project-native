@@ -25,6 +25,12 @@ export const UserName = styled.Text`
     font-weight: bold;
 `;
 
+export const ButtonBack = styled.TouchableOpacity`
+    margin-left: 10px;
+    width: 30px;
+    border-radius: 15px;
+`;
+
 export const CardLogout = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: space-between;
@@ -92,6 +98,7 @@ export const ContainerFollowers = styled.View`
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    padding-right: 2px;
 `;
 
 export const Followers = styled.View`
